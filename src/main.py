@@ -1,117 +1,86 @@
 import random
+from enemies import SmartEnemy
 
 player_hp = 40
-shield = 0 
-mob_hp  = 40
-mob1_name = "Mr.Squidward"
+block = 0
+
+enemy = SmartEnemy("Mr.Squidward", 40)
 is_playing = True
+
+
+def enemy_attack_player(block, player_hp):
+    damage = random.randint(4, 9)
+
+    damage = max(0, damage - block)
+    block = 0
+
+    player_hp -= damage
+    player_hp = max(0, player_hp)
+
+    return block, player_hp, damage
+
+
+def player_block():
+    return random.randint(4, 6)
+
+
+def skip_turn():
+    print("You skipped turn")
+
 
 while is_playing:
     print("======================")
-    print(f"{mob1_name}'s HP: {mob_hp}")
+    print(f"{enemy.name}'s HP: {enemy.hp}")
     print(f"Your HP: {player_hp}")
-    print(f"Shield: {shield}")
+    print(f"Block: {block}")
     print("======================")
-    print("q. Quit the game")
+    print("q. Quit")
     print("0. Skip turn")
-    print("1. Attack (deal 6 damage)")
-    print("2. Use the shield")
+    print("1. Attack (6 dmg)")
+    print("2. Block")
     print("======================")
 
-    choice = input("Enter your choice: ").lower()
+    choice = input("Choice: ").lower()
 
-    # =========================
-    # ATTACK
-    # =========================
+    # ================= ATTACK =================
     if choice == "1":
-        mob_hp -= 6
-        mob_hp = max(0, mob_hp)
+        enemy.hp -= 6
+        enemy.hp = max(0, enemy.hp)
 
-        if mob_hp == 0:
-            print(f"{mob1_name} was killed")
-            print("Congratulations, you won")
-            is_playing = False
-            continue
+        if enemy.hp == 0:
+            print(f"{enemy.name} was killed")
+            print("You won")
+            break
 
-        # ENEMY ATTACK
-        damage = random.randint(4, 9)
+        block, player_hp, damage = enemy_attack_player(block, player_hp)
 
-        if shield >= damage:
-            shield -= damage
-            damage = 0
-        else:
-            damage -= shield
-            shield = 0
+        print(f"You attacked {enemy.name}. HP left: {enemy.hp}")
+        print(f"He dealt {damage} damage.")
 
-        player_hp -= damage
-        player_hp = max(0, player_hp)
-
-        print(f"You attacked {mob1_name}. It has {mob_hp} HP left")
-        print(f"{mob1_name} dealt {damage} damage.")
-
-        if player_hp == 0:
-            print("You DIED. GAME OVER")
-            is_playing = False
-
-    # =========================
-    # SKIP TURN
-    # =========================
+    # ================= SKIP =================
     elif choice == "0":
-        print("You skipped your turn")
+        skip_turn()
+        block, player_hp, damage = enemy_attack_player(block, player_hp)
+        print(f"{enemy.name} dealt {damage} damage.")
 
-        damage = random.randint(4, 9)
-
-        if shield >= damage:
-            shield -= damage
-            damage = 0
-        else:
-            damage -= shield
-            shield = 0
-
-        player_hp -= damage
-        player_hp = max(0, player_hp)
-
-        print(f"{mob1_name} dealt {damage} damage. You have {player_hp} HP")
-
-        if player_hp == 0:
-            print("You DIED. GAME OVER")
-            is_playing = False
-
-    # =========================
-    # SHIELD
-    # =========================
+    # ================= BLOCK =================
     elif choice == "2":
-        print("You raised your shield")
-        shield += random.randint(4, 6)
-        print(f"Shield is now {shield} points")
+        block += player_block()
+        print("You raised block")
 
-        damage = random.randint(4, 9)
+        block, player_hp, damage = enemy_attack_player(block, player_hp)
 
-        if shield >= damage:
-            print(f"{mob1_name} attacked you and dealt {damage} danage, but shield blocked all of that damage")
-            shield -= damage
-            damage = 0
-            
-        else:
-            damage -= shield
-            shield = 0
-            player_hp -= damage
-            player_hp = max(0, player_hp)
+        print(f"Block now: {block}")
+        print(f"{enemy.name} dealt {damage} damage.")
 
-            print(f"{mob1_name} dealt {damage} damage. You have {player_hp} HP")
-
-        if player_hp == 0:
-            print("You DIED. GAME OVER")
-            is_playing = False
-
-    # =========================
-    # QUIT
-    # =========================
+    # ================= QUIT =================
     elif choice == "q":
-        print("You ran away from battle.")
-        is_playing = False
+        print("You ran away")
+        break
 
-    else:
-        print("Invalid choice")
+    # ================= DEATH =================
+    if player_hp == 0:
+        print("You DIED")
+        break
 
-print("Thanks for playing!")
+print("Game over")
