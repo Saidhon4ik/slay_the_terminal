@@ -8,6 +8,10 @@ is_playing = True
 
 while is_playing:
     print("======================")
+    print(f"{mob1_name}'s HP: {mob_hp}")
+    print(f"Your HP: {player_hp}")
+    print(f"Shield: {shield}")
+    print("======================")
     print("q. Quit the game")
     print("0. Skip turn")
     print("1. Attack (deal 6 damage)")
@@ -16,46 +20,22 @@ while is_playing:
 
     choice = input("Enter your choice: ").lower()
 
+    # =========================
+    # ATTACK
+    # =========================
     if choice == "1":
         mob_hp -= 6
         mob_hp = max(0, mob_hp)
 
-        if mob_hp == 0:        
+        if mob_hp == 0:
             print(f"{mob1_name} was killed")
             print("Congratulations, you won")
             is_playing = False
-        else:
-            mob1_attack = random.randint(4, 9)
-            damage = mob1_attack
+            continue
 
-            # SHIELD LOGIC
-            if shield >= damage:
-                shield -= damage
-                damage = 0
-            else:
-                damage -= shield
-                shield = 0
+        # ENEMY ATTACK
+        damage = random.randint(4, 9)
 
-            player_hp -= damage
-            player_hp = max(0, player_hp)
-
-            print(f"You attacked {mob1_name}. Now it has {mob_hp} hp")
-            print(f"{mob1_name} dealt {damage} damage. Now you have {player_hp} hp")
-
-            # reset shield after attack
-            shield = 0
-
-            if player_hp == 0:
-                print("You DIED. GAME OVER")
-                is_playing = False
-
-    elif choice == "0":
-        print("You skip your turn")
-
-        mob1_attack = random.randint(4, 9)
-        damage = mob1_attack
-
-        # shield also works on skip
         if shield >= damage:
             shield -= damage
             damage = 0
@@ -66,45 +46,72 @@ while is_playing:
         player_hp -= damage
         player_hp = max(0, player_hp)
 
-        
-
-        print(f"{mob1_name} dealt {damage} damage. Now you have {player_hp} hp")
-
-        # reset shield
-        shield = 0
+        print(f"You attacked {mob1_name}. It has {mob_hp} HP left")
+        print(f"{mob1_name} dealt {damage} damage.")
 
         if player_hp == 0:
-            print("You died")
-            print("GAME OVER")
+            print("You DIED. GAME OVER")
             is_playing = False
 
-    elif choice == "2":
-        print("You decided to use shield")
-        shield += random.randint(4, 6)
-        print(f"Now you have {shield} points of shield")
+    # =========================
+    # SKIP TURN
+    # =========================
+    elif choice == "0":
+        print("You skipped your turn")
 
-        mob1_attack = random.randint(4, 9)
-        damage = mob1_attack
+        damage = random.randint(4, 9)
 
         if shield >= damage:
             shield -= damage
             damage = 0
-            print(f"your shield blocked all upcoming damage. You still have {player_hp}")
         else:
             damage -= shield
             shield = 0
 
+        player_hp -= damage
+        player_hp = max(0, player_hp)
+
+        print(f"{mob1_name} dealt {damage} damage. You have {player_hp} HP")
+
+        if player_hp == 0:
+            print("You DIED. GAME OVER")
+            is_playing = False
+
+    # =========================
+    # SHIELD
+    # =========================
+    elif choice == "2":
+        print("You raised your shield")
+        shield += random.randint(4, 6)
+        print(f"Shield is now {shield} points")
+
+        damage = random.randint(4, 9)
+
+        if shield >= damage:
+            print(f"{mob1_name} attacked you and dealt {damage} danage, but shield blocked all of that damage")
+            shield -= damage
+            damage = 0
+            
+        else:
+            damage -= shield
+            shield = 0
             player_hp -= damage
             player_hp = max(0, player_hp)
 
-            print(f"{mob1_name} dealt {damage} damage. Now you have {player_hp} hp")
+            print(f"{mob1_name} dealt {damage} damage. You have {player_hp} HP")
 
-            shield = 0
+        if player_hp == 0:
+            print("You DIED. GAME OVER")
+            is_playing = False
+
+    # =========================
+    # QUIT
+    # =========================
     elif choice == "q":
-        print("You decided not to fight and ran away.")
+        print("You ran away from battle.")
         is_playing = False
 
     else:
-        print("You chose a wrong option, please choose again")
+        print("Invalid choice")
 
-print("Thanks for playing my mini-game, have a nice day")
+print("Thanks for playing!")
