@@ -7,7 +7,7 @@ class Player:
         self.damage = damage # base atk
 
     def deal_damage(self,target):
-        pass
+        target.take_damage(self.damage)
 
     
     def take_damage(self,amount):

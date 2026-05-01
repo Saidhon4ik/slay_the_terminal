@@ -1,20 +1,17 @@
-#enemy.py
-import random
-
 class Enemy:
-    def __init__(self, name="Slime", hp=30):
+    def __init__(self,name,hp,damage):
         self.name = name
         self.hp = hp
-        self.block = 0
+        self.max_hp = hp
+        self.damage = damage
 
-    def take_damage(self, damage):
-        reduced = max(0, damage - self.block)
-        self.block = 0
-        self.hp = max(0, self.hp - reduced)
-        return reduced
+    
+    def take_damage(self,amount):
+        self.hp = max(0, self.hp - amount)
 
-    def attack_damage(self):
-        return random.randint(4, 8)
 
     def is_alive(self):
         return self.hp > 0
+    
+    def get_intent(self):
+        return f"{self.name} intends to attck you for {self.damage} damage"
