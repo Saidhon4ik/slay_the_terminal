@@ -37,7 +37,7 @@ def start_combat(player, enemy):  # passing the objects
 
         if not enemy.is_alive():
             print("\n================================")
-            print(f"{enemy.name} was defeated by powerful {player.name}")
+            print(f"{enemy.name} was defeated by a {player.name}")
             print("You have won the battle")
             print("You WON")
             print("================================\n")
