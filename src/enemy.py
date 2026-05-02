@@ -7,6 +7,7 @@ class Enemy:
         self.damage = damage
         self.block = 0
         self.current_action = "attack"
+        self.dodge = False
     
     def take_damage(self,amount):
         damage = max(0,amount - self.block)
@@ -34,7 +35,7 @@ class Enemy:
         elif self.current_action == "block":
             return(f"{self.name} is intending to block(4-6 damage)")
 
-    def execute_action(self,target):
+    def execute_action(self,target,turn):
         if self.current_action == "attack":
             actual_damage = max(0,self.damage - target.block)
             blocked_amount = self.damage - actual_damage
