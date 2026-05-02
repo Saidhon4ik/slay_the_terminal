@@ -8,13 +8,9 @@ class Enemy:
         self.block = 0
     
     def take_damage(self,amount):
-        if amount > self.block:
-            damage = amount - self.block
-            self.hp = max(0, self.hp - damage)
-        elif amount < self.block:
-            self.block = max(0, amount - self.block)
-            print("You did not recieve any damage")
-
+        damage = max(0,amount - self.block)
+        self.hp = max(0,self.hp - damage)
+        self.block = max(0,self.block - amount)
 
 
     def is_alive(self):
