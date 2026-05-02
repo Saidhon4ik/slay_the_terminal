@@ -42,4 +42,4 @@ class Enemy:
             if blocked_amount > 0:
                 print(f"{self.name} attacks for {self.damage}, you blocked {blocked_amount}! You take {actual_damage} damage!")  
             else:
-                print(f"{self.name} attacks your for {actual_damage} damage!")
+                print(f"{self.name} attacks you for {actual_damage} damage!")

@@ -1,6 +1,7 @@
 from combat import start_combat
 from player import Player
 from enemy import Enemy
+from enemies import Goblin,Gigachad,Slime
 
 def main():
     print("=========================================")
@@ -20,9 +21,9 @@ def main():
 
     player = Player(name)
     enemies = [
-        Enemy("Slime",20,4),
-        Enemy("Goblin",30,6),
-        Enemy("Mr.Gigachad",50,8)
+        Slime(),
+        Goblin(),
+        Gigachad()
     ]
 
     for enemy in enemies:
