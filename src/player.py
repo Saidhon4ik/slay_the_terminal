@@ -6,6 +6,14 @@ class Player:
         self.block = block # base shield
         self.damage = damage # base atk
 
+    def heal(self):
+        regen = int(0.3*self.max_hp)
+        print("=====================================================")
+        print(f"You were at {self.hp} hp")
+        self.hp = min(self.max_hp, self.hp+int(0.3*self.max_hp))
+        print(f"""After defeating a monster, 
+you healed your hp by {regen}. Now you have {self.hp}/{self.max_hp} hp""")
+        print("=====================================================")
     def deal_damage(self,target):
         target.take_damage(self.damage)
 

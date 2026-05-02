@@ -19,9 +19,17 @@ def main():
         name = name.strip()
 
     player = Player(name)
-    enemy1 = Enemy("Slime",40,6)
+    enemies = [
+        Enemy("Slime",20,4),
+        Enemy("Goblin",30,6),
+        Enemy("Mr.Gigachad",50,8)
+    ]
 
-    start_combat(player, enemy1)
+    for enemy in enemies:
+        print(f"The {enemy.name} has woken up. Get ready to fight")     
+        start_combat(player,enemy)
+        if enemy != enemies[-1]:
+            player.heal()
 
 
 if __name__ == "__main__":
