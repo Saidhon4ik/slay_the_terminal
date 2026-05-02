@@ -27,10 +27,14 @@ def start_combat(player, enemy):  # passing the objects
             actual_damage = max(0,player.damage - enemy.block)
             block_amount = player.damage - actual_damage
             player.deal_damage(enemy)    
-            if block_amount > 0:
-                print(f"{player.name} attacks for {player.damage}. {enemy.name} has blocked {block_amount}. {enemy.name} takes {actual_damage} damage")
+            if enemy.dodge:
+                pass
             else:
-                print(f"You dealt {actual_damage} damage to {enemy.name}!")
+                
+                if block_amount > 0:
+                    print(f"{player.name} attacks for {player.damage}. {enemy.name} has blocked {block_amount}. {enemy.name} takes {actual_damage} damage")
+                else:
+                    print(f"You dealt {actual_damage} damage to {enemy.name}!")
         
 
 
