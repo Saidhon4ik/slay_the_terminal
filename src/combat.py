@@ -2,10 +2,11 @@ from player import Player
 from enemy import Enemy
 
 def start_combat(player, enemy):  # passing the objects
+    turn = 0
     while player.is_alive() and enemy.is_alive():
         enemy.take_action()
         print("\n\n================================")
-        print(f"Player's hp: {player.hp}/{player.max_hp}")
+        print(f"{player.name}'s hp: {player.hp}/{player.max_hp}")
         print("================================")
         print(f"Enemy's hp: {enemy.hp}/{enemy.max_hp}")
         print(enemy.get_intent())
@@ -16,10 +17,6 @@ def start_combat(player, enemy):  # passing the objects
         print("3. Skip")
         choice = input("> ")
         print("================================")
-
-
-
-
 
 
 
@@ -35,9 +32,7 @@ def start_combat(player, enemy):  # passing the objects
                     print(f"{player.name} attacks for {player.damage}. {enemy.name} has blocked {block_amount}. {enemy.name} takes {actual_damage} damage")
                 else:
                     print(f"You dealt {actual_damage} damage to {enemy.name}!")
-        
-
-
+    
 
 
 
@@ -45,31 +40,14 @@ def start_combat(player, enemy):  # passing the objects
             player.add_block(5)
 
 
-
-
         elif choice == "3":
             player.skip_turn()
-
-
-
 
 
 
         else:
             print("You gotta choose a valid option")
             continue
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -84,7 +62,7 @@ def start_combat(player, enemy):  # passing the objects
 
         
 
-        enemy.execute_action(player)   
+        enemy.execute_action(player,turn)   
 
         if not player.is_alive():
             print("================================")
@@ -95,6 +73,6 @@ def start_combat(player, enemy):  # passing the objects
             break
 
 
-
+        turn += 1
         player.block = 0
         enemy.block = 0
