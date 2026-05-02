@@ -24,3 +24,11 @@ class Goblin(Enemy):
 class Gigachad(Enemy):
     def __init__(self):
         super().__init__("Gigachad", 50, 8)
+    
+
+    def execute_action(self, target, turn):
+        if turn % 3  == 0 and turn != 0 and self.current_action == "attack" :
+            target.take_damage(self.damage*2)
+            print(f"{self.name} uses GIGACHAD SMASH and attacks you for {self.damage*2} damage")
+        else:
+            super().execute_action(target,turn)
