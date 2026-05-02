@@ -14,8 +14,8 @@ def main():
     name = name.strip()
 
 
-    while not name:
-        print("Name cannot be empty bro...")
+    while not name or not name.replace("_", "").isalpha():
+        print("Please try again")
         name = input("Enter your name: ")
         name = name.strip()
 
