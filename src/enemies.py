@@ -23,7 +23,7 @@ class Goblin(Enemy):
 
 class Gigachad(Enemy):
     def __init__(self):
-        super().__init__("Gigachad", 50, 8)
+        super().__init__("Gigachad", 40, 7)
     
 
     def execute_action(self, target, turn):
