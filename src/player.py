@@ -1,3 +1,4 @@
+from deck import Deck
 class Player:
     def __init__(self,name,hp = 50,block = 0, damage = 7):
         self.name = name #just name
@@ -5,6 +6,9 @@ class Player:
         self.max_hp = hp #max_hp, capped at 50 for now
         self.block = block # base shield
         self.damage = damage # base atk
+        self.energy = 3
+        self.deck = Deck()
+        self.energy_per_turn = 3
 
     def heal(self):
         regen = int(0.3*self.max_hp)
