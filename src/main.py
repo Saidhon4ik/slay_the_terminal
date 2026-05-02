@@ -3,7 +3,7 @@ from player import Player
 from enemy import Enemy
 
 def main():
-    print("\n=========================================")
+    print("=========================================")
     print("Welcome to the Slay The Terminal")
     print("It is a fanmade game, so have fun")
     print("=========================================\n")
@@ -19,7 +19,7 @@ def main():
         name = name.strip()
 
     player = Player(name)
-    enemy1 = Enemy("Mr.Nigga",40,6)
+    enemy1 = Enemy("Slime",40,6)
 
     start_combat(player, enemy1)
 

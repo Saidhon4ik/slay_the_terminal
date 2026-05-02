@@ -3,7 +3,8 @@ from enemy import Enemy
 
 def start_combat(player, enemy):  # passing the objects
     while player.is_alive() and enemy.is_alive():
-        print("\n================================")
+        enemy.take_action()
+        print("\n\n================================")
         print(f"Player's hp: {player.hp}/{player.max_hp}")
         print("================================")
         print(f"Enemy's hp: {enemy.hp}/{enemy.max_hp}")
@@ -16,18 +17,57 @@ def start_combat(player, enemy):  # passing the objects
         choice = input("> ")
         print("================================")
 
+
+
+
+
+
+
         if choice == "1":
-            player.deal_damage(enemy)
+            actual_damage = max(0,player.damage - enemy.block)
+            block_amount = player.damage - actual_damage
+            player.deal_damage(enemy)    
+            if block_amount > 0:
+                print(f"{player.name} attacks for {player.damage}. {enemy.name} has blocked {block_amount}. {enemy.name} takes {actual_damage} damage")
+            else:
+                print(f"You dealt {actual_damage} damage to {enemy.name}!")
         
+
+
+
+
+
         elif choice == "2":
             player.add_block(5)
-            print(f"Player's current block: {player.block}")
+
+
+
 
         elif choice == "3":
             player.skip_turn()
+
+
+
+
+
+
         else:
             print("You gotta choose a valid option")
             continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         if not enemy.is_alive():
@@ -37,11 +77,10 @@ def start_combat(player, enemy):  # passing the objects
             print("You WON")
             print("================================")
             break
+
         
 
-        print(f"Enemy block before attack: {enemy.block}")
-        enemy.take_action(player)   
-        print(f"Enemy block before attack: {enemy.block}")
+        enemy.execute_action(player)   
 
         if not player.is_alive():
             print("================================")
