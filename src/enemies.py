@@ -28,7 +28,12 @@ class Gigachad(Enemy):
 
     def execute_action(self, target, turn):
         if turn % 3  == 0 and turn != 0 and self.current_action == "attack" :
+            actual_damage = max(0, self.damage*2 - target.block)
+            blocked = self.damage*2 - actual_damage
+            if blocked > 0:
+                print(f"{self.name} GIGACHAD SMASH for {self.damage*2}, you blocked {blocked}! You take {actual_damage} damage!")
+            else:
+                print(f"{self.name} GIGACHAD SMASH for {actual_damage} damage!")
             target.take_damage(self.damage*2)
-            print(f"{self.name} uses GIGACHAD SMASH and attacks you for {self.damage*2} damage")
         else:
             super().execute_action(target,turn)
