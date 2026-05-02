@@ -1,5 +1,5 @@
 class Player:
-    def __init__(self,name,hp = 50,block = 0, damage = 6):
+    def __init__(self,name,hp = 70,block = 0, damage = 8):
         self.name = name #just name
         self.hp = hp #base hp
         self.max_hp = hp #max_hp, capped at 50 for now
