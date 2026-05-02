@@ -4,6 +4,8 @@ from enemy import Enemy
 
 def start_combat(player, enemy):  # passing the objects
     while player.is_alive() and enemy.is_alive():
+        player.block = 0
+        enemy.block = 0
         print("\n================================")
         print(f"Player's hp: {player.hp}/{player.max_hp}")
         print(f"Player's current block: {player.block}")
@@ -43,7 +45,7 @@ def start_combat(player, enemy):  # passing the objects
             print("================================\n")
             break
 
-        player.take_damage(enemy.damage)
+        enemy.take_action(player)
 
 
         if not player.is_alive():
