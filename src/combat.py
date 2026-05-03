@@ -4,6 +4,9 @@ from enemy import Enemy
 def start_combat(player, enemy):  # passing the objects
     turn = 0
     while player.is_alive() and enemy.is_alive():
+        player.deck.draw(4)
+        for i, card in enumerate(player.deck.hand):
+            print(f"{i+1}. {card.name} - {card.description}")
         enemy.take_action()
         print("\n\n================================")
         print(f"{player.name}'s hp: {player.hp}/{player.max_hp}")
@@ -19,8 +22,8 @@ def start_combat(player, enemy):  # passing the objects
         print("================================")
 
 
-
-        if choice == "1":
+        choice = int(choice)
+        if choice == 1:
             actual_damage = max(0,player.damage - enemy.block)
             block_amount = player.damage - actual_damage
             player.deal_damage(enemy)    
@@ -73,6 +76,7 @@ def start_combat(player, enemy):  # passing the objects
             break
 
 
+        player.deck.discard_hand()
         turn += 1
         player.block = 0
         enemy.block = 0
